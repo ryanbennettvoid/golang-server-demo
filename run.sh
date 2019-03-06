@@ -30,7 +30,7 @@ runTest()
 
 runDocker()
 {
-  docker-compose -f ./docker/docker-compose.yml up
+  docker-compose -f ./docker/docker-compose.yml up --build
 }
 
 case "$CMD" in
