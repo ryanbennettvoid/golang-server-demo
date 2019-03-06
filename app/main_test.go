@@ -12,4 +12,10 @@ func TestMain(t *testing.T) {
 
   assert.True(true)
 
+  server := NewServer()
+  err := server.Listen()
+  if err != nil {
+    panic(err)
+  }
+
 }

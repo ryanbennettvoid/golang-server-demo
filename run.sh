@@ -13,12 +13,12 @@ usage()
 
 runServer()
 {
-  go run ./main.go
+  go run ./app/main.go
 }
 
 runTest()
 {
-  go test
+  go test -v ./...
 }
 
 runDocker()
