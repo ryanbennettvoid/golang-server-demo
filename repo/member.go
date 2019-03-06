@@ -8,6 +8,11 @@ import (
   "gopkg.in/mgo.v2/bson"
 )
 
+// dates are rounded a bit since mongo
+// doesn't store with full precision
+// (this helps with testing)
+const DATE_PRECISION = time.Millisecond
+
 const (
   MEMBER_ERROR_MISSING_NAME      = "member name is missing"
   MEMBER_ERROR_INVALID_TYPE      = "member type is invalid"
@@ -25,14 +30,14 @@ const (
 )
 
 type Member struct {
-  Id        bson.ObjectId `json:"id"`
-  Name      string        `json:"name"`
-  Type      int           `json:"type"`
-  StartDate time.Time     `json:"start_date"`
-  EndDate   time.Time     `json:"end_date"`
-  Role      string        `json:"role"`
-  Tags      []string      `json:"tags"`
-  Hidden    bool          `json:"hidden"`
+  Id        bson.ObjectId `json:"_id" bson:"_id"`
+  Name      string        `json:"name" bson:"name"`
+  Type      int           `json:"type" bson:"type"`
+  StartDate time.Time     `json:"start_date" bson:"start_date"`
+  EndDate   time.Time     `json:"end_date" bson:"end_date"`
+  Role      string        `json:"role" bson:"role"`
+  Tags      []string      `json:"tags" bson:"tags"`
+  Hidden    bool          `json:"hidden" bson:"hidden"`
 }
 
 func NewEmployee(name string, startDate time.Time, role string) Member {
@@ -40,8 +45,9 @@ func NewEmployee(name string, startDate time.Time, role string) Member {
     Id:        bson.NewObjectId(),
     Name:      name,
     Type:      MEMBER_TYPE_EMPLOYEE,
-    StartDate: startDate,
+    StartDate: startDate.Round(DATE_PRECISION),
     Role:      role,
+    Tags:      []string{},
     Hidden:    false,
   }
 }
@@ -51,8 +57,9 @@ func NewContractor(name string, startDate time.Time, endDate time.Time) Member {
     Id:        bson.NewObjectId(),
     Name:      name,
     Type:      MEMBER_TYPE_CONTRACTOR,
-    StartDate: startDate,
-    EndDate:   endDate,
+    StartDate: startDate.Round(DATE_PRECISION),
+    EndDate:   endDate.Round(DATE_PRECISION),
+    Tags:      []string{},
     Hidden:    false,
   }
 }

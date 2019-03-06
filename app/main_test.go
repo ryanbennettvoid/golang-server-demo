@@ -9,6 +9,12 @@ import (
   "gitlab.com/codelittinc/golang-interview-project-ryan-bennett/repo/dbclient"
 )
 
+/*
+
+  API Integration Test
+
+*/
+
 func TestMain(t *testing.T) {
 
   // remove all members
@@ -51,6 +57,7 @@ func TestMain(t *testing.T) {
 
   // create member
   newMember := repo.NewEmployee("John Doe", time.Now(), "Software Engineer")
+  newMember.Tags = []string{"Javascript", "Golang"}
   {
     err := client.CreateMember(newMember)
     assert.NoError(err)
@@ -58,13 +65,32 @@ func TestMain(t *testing.T) {
 
   // get member
   {
-    _, err := client.GetMemberById(newMember.Id.Hex())
+    member, err := client.GetMemberById(newMember.Id.Hex())
     assert.NoError(err)
-    // a, err := newMember.ToJSON()
-    // assert.NoError(err)
-    // b, err := member.ToJSON()
-    // assert.NoError(err)
-    // assert.JSONEq(a, b)
+    a, err := newMember.ToJSON()
+    assert.NoError(err)
+    b, err := member.ToJSON()
+    assert.NoError(err)
+    assert.JSONEq(a, b)
+  }
+
+  newRole := "Management"
+  newMember.Role = newRole
+  // update member
+  {
+    err := client.UpdateMemberById(newMember.Id.Hex(), newMember)
+    assert.NoError(err)
+  }
+
+  // get member again
+  {
+    member, err := client.GetMemberById(newMember.Id.Hex())
+    assert.NoError(err)
+    a, err := newMember.ToJSON()
+    assert.NoError(err)
+    b, err := member.ToJSON()
+    assert.NoError(err)
+    assert.JSONEq(a, b)
   }
 
 }

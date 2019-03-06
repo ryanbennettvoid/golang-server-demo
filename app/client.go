@@ -102,11 +102,11 @@ func (c *Client) GetMembers() ([]repo.Member, error) {
   return obj, nil
 }
 
-func (c *Client) CreateMember(member repo.Member) error {
+func (c *Client) CreateMember(inMember repo.Member) error {
   options := NewClientRequestOptions()
   options.Method = http.MethodPost
   options.Endpoint = "/members"
-  requestMemberData, err := json.Marshal(member)
+  requestMemberData, err := json.Marshal(inMember)
   if err != nil {
     return err
   }
@@ -137,9 +137,29 @@ func (c *Client) GetMemberById(id string) (repo.Member, error) {
   return obj, nil
 }
 
-// func (c *Client) UpdateMemberById(id string) (string, error) {
-//   return "", nil
-// }
+func (c *Client) UpdateMemberById(id string, inMember repo.Member) error {
+  options := NewClientRequestOptions()
+  options.Method = http.MethodPut
+  options.Endpoint = fmt.Sprintf("/members/%s", id)
+  requestMemberData, err := json.Marshal(inMember)
+  if err != nil {
+    return err
+  }
+  err = json.Unmarshal(requestMemberData, &options.Body)
+  if err != nil {
+    return err
+  }
+  data, err := c.MakeRequest(options)
+  if err != nil {
+    return err
+  }
+  var obj repo.Member
+  err = json.Unmarshal(data, &obj)
+  if err != nil {
+    return err
+  }
+  return nil
+}
 
 // func (c *Client) DeleteMemberById(id string) (string, error) {
 //   return "", nil
