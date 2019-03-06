@@ -1,8 +1,11 @@
-package main
+package repo
 
 import (
+  "encoding/json"
   "errors"
   "time"
+
+  "gopkg.in/mgo.v2/bson"
 )
 
 const (
@@ -22,29 +25,35 @@ const (
 )
 
 type Member struct {
-  Name      string
-  Type      int
-  StartDate time.Time
-  EndDate   time.Time
-  Role      string
-  Tags      []string
+  Id        bson.ObjectId `json:"id"`
+  Name      string        `json:"name"`
+  Type      int           `json:"type"`
+  StartDate time.Time     `json:"start_date"`
+  EndDate   time.Time     `json:"end_date"`
+  Role      string        `json:"role"`
+  Tags      []string      `json:"tags"`
+  Hidden    bool          `json:"hidden"`
 }
 
 func NewEmployee(name string, startDate time.Time, role string) Member {
   return Member{
+    Id:        bson.NewObjectId(),
     Name:      name,
     Type:      MEMBER_TYPE_EMPLOYEE,
     StartDate: startDate,
     Role:      role,
+    Hidden:    false,
   }
 }
 
 func NewContractor(name string, startDate time.Time, endDate time.Time) Member {
   return Member{
+    Id:        bson.NewObjectId(),
     Name:      name,
     Type:      MEMBER_TYPE_CONTRACTOR,
     StartDate: startDate,
     EndDate:   endDate,
+    Hidden:    false,
   }
 }
 
@@ -84,4 +93,12 @@ func (m *Member) TermDuration() (time.Duration, error) {
     return time.Duration(0), errors.New(MEMBER_ERROR_DATES_MISMATCH)
   }
   return m.EndDate.Sub(m.StartDate), nil
+}
+
+func (m *Member) ToJSON() (string, error) {
+  data, err := json.Marshal(m)
+  if err != nil {
+    return "", err
+  }
+  return string(data), nil
 }

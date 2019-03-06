@@ -3,7 +3,7 @@ version: '2'
 services:
 
   rb_mongo:
-    image: mongo
+    image: mongo:4.0
     volumes:
       - ~/rb_server_db:/data/db
 

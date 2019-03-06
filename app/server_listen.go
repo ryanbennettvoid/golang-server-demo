@@ -31,6 +31,7 @@ func (server *Server) Listen() error {
   r.Use(middleware.Recoverer)
   r.Use(middleware.Timeout(60 * time.Second))
 
+  r.Get("/heartbeat", server.HandleGetHeartbeat)
   r.Get("/members", server.HandleGetMembers)
   r.Get("/members/{id}", server.HandleGetMemberById)
   r.Put("/members", server.HandleUpdateMember)

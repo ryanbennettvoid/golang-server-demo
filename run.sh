@@ -11,14 +11,21 @@ usage()
   echo "  docker"
 }
 
+noteMongo()
+{
+  echo "NOTE: make sure that mongo is running (mongo.sh)"
+}
+
 runServer()
 {
+  noteMongo
   go run ./app/main.go
 }
 
 runTest()
 {
-  go test -v ./...
+  noteMongo
+  go test -failfast -v ./...
 }
 
 runDocker()
