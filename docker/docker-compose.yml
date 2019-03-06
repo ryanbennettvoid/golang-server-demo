@@ -14,8 +14,8 @@ services:
     environment:
       - PRODUCTION=true
       - MONGO_HOST=rb_mongo
-    expose:
-      - "9090"
+    ports:
+      - "9090:9090"
     depends_on:
       - rb_mongo
     links:

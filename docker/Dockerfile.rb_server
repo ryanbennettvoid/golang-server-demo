@@ -5,6 +5,5 @@ ARG PROJECT_DIR=/go/src/gitlab.com/codelittinc/golang-interview-project-ryan-ben
 RUN mkdir -p $PROJECT_DIR
 WORKDIR $PROJECT_DIR
 COPY . .
-WORKDIR $PROJECT_DIR/app
 
-CMD ["go", "run", "main.go"]
+CMD ["./run.sh", "server"]
