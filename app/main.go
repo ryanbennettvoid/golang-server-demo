@@ -1,9 +1,11 @@
 package main
 
-import "fmt"
-
 func main() {
 
-  fmt.Println("hello")
+  server := NewServer()
+  err := server.Listen()
+  if err != nil {
+    panic(err)
+  }
 
 }

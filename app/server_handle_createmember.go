@@ -9,10 +9,18 @@ import (
 )
 
 func (server *Server) HandleCreateMember(res http.ResponseWriter, req *http.Request) {
+
   reqData, err := ioutil.ReadAll(req.Body)
   if err != nil {
     WriteJsonFromObject(ErrorResponse{
       Message: err.Error(),
+    }, false, res)
+    return
+  }
+
+  if len(reqData) == 0 {
+    WriteJsonFromObject(ErrorResponse{
+      Message: ERROR_MISSING_REQUEST_BODY,
     }, false, res)
     return
   }

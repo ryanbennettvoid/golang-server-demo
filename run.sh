@@ -19,7 +19,7 @@ noteMongo()
 runServer()
 {
   noteMongo
-  go run ./app/main.go
+  go run ./app
 }
 
 runTest()
