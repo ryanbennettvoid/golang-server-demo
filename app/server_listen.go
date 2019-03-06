@@ -36,7 +36,7 @@ func (server *Server) Listen() error {
   r.Post("/members", server.HandleCreateMember)
   r.Get("/members/{id}", server.HandleGetMemberById)
   r.Put("/members/{id}", server.HandleUpdateMemberById)
-  r.Delete("/members/{id}", server.HandleDeleteMember)
+  r.Delete("/members/{id}", server.HandleDeleteMemberById)
 
   fmt.Printf("listening on port %d...\n", server.Port)
 

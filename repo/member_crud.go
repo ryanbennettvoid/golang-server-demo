@@ -123,3 +123,30 @@ func UpdateMemberById(id string, inMember Member) error {
 
   return nil
 }
+
+func DeleteMemberById(id string) error {
+
+  c := dbclient.New()
+  if err := c.Connect(); err != nil {
+    panic(err)
+  }
+  defer c.Disconnect()
+
+  collection := c.Session.DB(c.DbName).C(COLLECTION_MEMBERS)
+  query := bson.M{
+    "_id":    bson.ObjectIdHex(id),
+    "hidden": false,
+  }
+  action := bson.M{
+    "$set": bson.M{
+      "hidden": true,
+    },
+  }
+
+  err := collection.Update(query, action)
+  if err != nil {
+    return err
+  }
+
+  return nil
+}

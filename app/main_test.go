@@ -76,6 +76,7 @@ func TestMain(t *testing.T) {
 
   newRole := "Management"
   newMember.Role = newRole
+  newMember.Tags = append(newMember.Tags, "C++")
   // update member
   {
     err := client.UpdateMemberById(newMember.Id.Hex(), newMember)
@@ -91,6 +92,40 @@ func TestMain(t *testing.T) {
     b, err := member.ToJSON()
     assert.NoError(err)
     assert.JSONEq(a, b)
+  }
+
+  // get members (expect 1)
+  {
+    members, err := client.GetMembers()
+    assert.NoError(err)
+    assert.Len(members, 1)
+  }
+
+  // create member
+  newContractor := repo.NewContractor("John Doe", time.Now(), time.Now().Add(time.Hour*24*90))
+  {
+    err := client.CreateMember(newContractor)
+    assert.NoError(err)
+  }
+
+  // get members (expect 2)
+  {
+    members, err := client.GetMembers()
+    assert.NoError(err)
+    assert.Len(members, 2)
+  }
+
+  // delete member
+  {
+    err := client.DeleteMemberById(newContractor.Id.Hex())
+    assert.NoError(err)
+  }
+
+  // get members (expect 1)
+  {
+    members, err := client.GetMembers()
+    assert.NoError(err)
+    assert.Len(members, 1)
   }
 
 }

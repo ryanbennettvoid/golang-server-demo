@@ -149,18 +149,20 @@ func (c *Client) UpdateMemberById(id string, inMember repo.Member) error {
   if err != nil {
     return err
   }
-  data, err := c.MakeRequest(options)
-  if err != nil {
-    return err
-  }
-  var obj repo.Member
-  err = json.Unmarshal(data, &obj)
+  _, err = c.MakeRequest(options)
   if err != nil {
     return err
   }
   return nil
 }
 
-// func (c *Client) DeleteMemberById(id string) (string, error) {
-//   return "", nil
-// }
+func (c *Client) DeleteMemberById(id string) error {
+  options := NewClientRequestOptions()
+  options.Method = http.MethodDelete
+  options.Endpoint = fmt.Sprintf("/members/%s", id)
+  _, err := c.MakeRequest(options)
+  if err != nil {
+    return err
+  }
+  return nil
+}
