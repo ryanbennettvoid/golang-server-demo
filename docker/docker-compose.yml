@@ -1,0 +1,22 @@
+version: '2'
+
+services:
+
+  rb_mongo:
+    image: mongo
+    volumes:
+      - ~/rb_server_db:/data/db
+
+  rb_server:
+    build: 
+      context: ../
+      dockerfile: ./docker/Dockerfile.rb_server
+    environment:
+      - PRODUCTION=true
+      - MONGO_HOST=rb_mongo
+    expose:
+      - "9090"
+    depends_on:
+      - rb_mongo
+    links:
+      - rb_mongo
