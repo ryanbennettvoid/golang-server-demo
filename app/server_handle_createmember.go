@@ -5,7 +5,7 @@ import (
   "io/ioutil"
   "net/http"
 
-  "gitlab.com/codelittinc/golang-interview-project-ryan-bennett/repo"
+  "github.com/ryanbennettvoid/golang-server-demo/repo"
 )
 
 func (server *Server) HandleCreateMember(res http.ResponseWriter, req *http.Request) {

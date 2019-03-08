@@ -9,7 +9,7 @@ import (
   "net/http"
   "time"
 
-  "gitlab.com/codelittinc/golang-interview-project-ryan-bennett/repo"
+  "github.com/ryanbennettvoid/golang-server-demo/repo"
 )
 
 type Client struct {

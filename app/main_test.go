@@ -4,9 +4,9 @@ import (
   "testing"
   "time"
 
+  "github.com/ryanbennettvoid/golang-server-demo/repo"
+  "github.com/ryanbennettvoid/golang-server-demo/repo/dbclient"
   "github.com/stretchr/testify/assert"
-  "gitlab.com/codelittinc/golang-interview-project-ryan-bennett/repo"
-  "gitlab.com/codelittinc/golang-interview-project-ryan-bennett/repo/dbclient"
 )
 
 /*

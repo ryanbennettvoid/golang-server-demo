@@ -1,6 +1,6 @@
 FROM golang:1.12.0
 
-ARG PROJECT_DIR=/go/src/gitlab.com/codelittinc/golang-interview-project-ryan-bennett
+ARG PROJECT_DIR=/go/src/github.com/ryanbennettvoid/golang-server-demo
 
 RUN mkdir -p $PROJECT_DIR
 WORKDIR $PROJECT_DIR

@@ -3,7 +3,7 @@ package main
 import (
   "net/http"
 
-  "gitlab.com/codelittinc/golang-interview-project-ryan-bennett/repo"
+  "github.com/ryanbennettvoid/golang-server-demo/repo"
 )
 
 func (server *Server) HandleGetMembers(res http.ResponseWriter, req *http.Request) {

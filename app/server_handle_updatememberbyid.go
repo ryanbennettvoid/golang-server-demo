@@ -6,7 +6,7 @@ import (
   "net/http"
 
   "github.com/go-chi/chi"
-  "gitlab.com/codelittinc/golang-interview-project-ryan-bennett/repo"
+  "github.com/ryanbennettvoid/golang-server-demo/repo"
 )
 
 func (server *Server) HandleUpdateMemberById(res http.ResponseWriter, req *http.Request) {

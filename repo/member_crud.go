@@ -4,7 +4,7 @@ import (
   "encoding/json"
   "time"
 
-  "gitlab.com/codelittinc/golang-interview-project-ryan-bennett/repo/dbclient"
+  "github.com/ryanbennettvoid/golang-server-demo/repo/dbclient"
   "gopkg.in/mgo.v2/bson"
 )
 
